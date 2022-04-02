@@ -18,6 +18,15 @@ public class Film {
 	private List<Actor> actorList;
 	private String language;
 
+	public String getLanguage() {
+		return language;
+	}
+
+	public List<Actor> getActorList() {
+		return actorList;
+	}
+
+
 	public Film() {
 		super();
 	}

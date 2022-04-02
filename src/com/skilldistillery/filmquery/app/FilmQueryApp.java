@@ -38,15 +38,15 @@ public class FilmQueryApp {
 	private void startUserInterface(Scanner input) {
 		boolean runMenu = true;
 		String userInput = "";
-		int filmId  = 0;
+		int filmId = 0;
 		String keyword = "";
 
+		System.out.println("Welcome to the film query app, please pick a menu item");
 		while (runMenu) {
-			System.out.println("Welcome to the film query app, please pick a menu item");
 			System.out.println("1. Look up film by its id.");
 			System.out.println("2. Look up a film by a search keyword");
 			System.out.println("3. Exit the application");
-			//play with this later
+			// play with this later
 			userInput = input.next();
 
 			switch (userInput) {
@@ -56,17 +56,27 @@ public class FilmQueryApp {
 				if (db.findFilmById(filmId) == null) {
 					System.out.println("There is no film with the id: " + filmId + "\n");
 				} else {
-					System.out.println(db.findFilmById(filmId) + "\n");
+					Film filmFound = db.findFilmById(filmId);
+					System.out.println(
+							filmFound.getTitle() + " " + filmFound.getRelease_year() + " " + filmFound.getRating() + " "
+									+ filmFound.getDescription() + " " + filmFound.getLanguage() +" "+filmFound.getActorList()+ "\n");
 				}
 				break;
 			case "2":
 				System.out.println("Please enter seach keyword:");
 				keyword = input.next();
 				List<Film> keywordFilms = db.findFilmsByKeyword(keyword);
-				if(keywordFilms.size() == 0) {
-					System.out.println("There are no films for the keyword: "+ keyword + "\n");
-				}else {
-					System.out.println(keywordFilms+"\n");
+				if (keywordFilms.size() == 0) {
+					System.out.println("There are no films for the keyword: " + keyword + "\n");
+				} else {
+					int count = 0;
+					for (Film film : keywordFilms) {
+						count++;
+						System.out.println(film.getTitle() + " " + film.getRelease_year() + " " + film.getRating() + " "
+								+ film.getDescription() + " " + film.getLanguage() +" "+film.getActorList()+"\n");
+						;
+					}
+					System.out.println("There are " + count + " movies with this keyword.");
 				}
 				break;
 			case "3":
