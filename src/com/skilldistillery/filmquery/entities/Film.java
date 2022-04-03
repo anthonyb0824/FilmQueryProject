@@ -17,6 +17,7 @@ public class Film {
 	private String specialFeatures;
 	private List<Actor> actorList;
 	private String language;
+	private String category;
 
 	public String getLanguage() {
 		return language;
@@ -33,7 +34,7 @@ public class Film {
 
 	public Film(int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
 			double rentalRate, int length, double replacementCost, String rating, String specialFeatures,
-			List<Actor> actorList, String language) {
+			List<Actor> actorList, String language, String category) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -48,6 +49,7 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 		this.actorList = actorList;
 		this.language = language;
+		this.category = category;
 	}
 
 	public Film(int id, String title, String description, int release_year, int language_id, int rental_duration,
@@ -66,16 +68,15 @@ public class Film {
 		this.specialFeatures = special_features;
 	}
 
-	
 
 	@Override
 	public String toString() {
 		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
 				+ ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
 				+ ", length=" + length + ", replacementCost=" + replacementCost + ", rating=" + rating
-				+ ", specialFeatures=" + specialFeatures + ", actorList=" + actorList + ", language=" + language + "]";
+				+ ", specialFeatures=" + specialFeatures + ", actorList=" + actorList + ", language=" + language
+				+ ", category=" + category + "]";
 	}
-
 
 	@Override
 	public int hashCode() {

@@ -50,7 +50,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 						rs.getInt("release_year"), lang = rs.getInt("language_id"), rs.getInt("rental_duration"),
 						rs.getDouble("rental_rate"), rs.getInt("length"), rs.getDouble("replacement_cost"),
 						rs.getString("rating"), rs.getString("special_features"), findActorsByFilmId(filmId),
-						findLanguageByLanguageId(lang));
+						findLanguageByLanguageId(lang), findCategoryByFilmId(filmId));
 			}
 
 			return newFilm;
@@ -77,6 +77,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 		return null;
 	}
+
 
 	@Override
 	public String findLanguageByLanguageId(int langId) {
@@ -192,11 +193,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public List<Film> findFilmsByKeyword(String string) {
 		try {
 			List<Film> filmList = new ArrayList<Film>();
-			String sqltext = "SELECT * From film WHERE description LIKE '%"+string+"%' or title LIKE '%"+string+"%'";
+			String sqltext = "SELECT * From film WHERE description LIKE ? or title LIKE ?";
 			conn = DriverManager.getConnection(URL, user, pass);
 			stmt = conn.prepareStatement(sqltext);
-//			stmt.setString(1, string);
-//			stmt.setString(2, string);
+			stmt.setString(1, "%" + string + "%");
+			stmt.setString(2, "%" + string + "%");
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
@@ -227,4 +228,41 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return null;
 	}
 
+	public String findCategoryByFilmId(int filmId) {
+		String category = "";
+		try {
+			String sqltext = "SELECT f.id,  c.name FROM category c JOIN film_category fc ON c.id = fc.category_id JOIN film f ON fc.film_id = f.id WHERE f.id = ? ORDER BY f.title";
+			conn = DriverManager.getConnection(URL, user, pass);
+			stmt = conn.prepareStatement(sqltext);
+			stmt.setInt(1, filmId);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				category= rs.getString("name");
+			}else {
+				category = "idk";
+			}
+			
+			
+			return category;
+
+		} catch (SQLException e) {
+			System.err.println(e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				} // Not needed, stmt.close() will close it; but good practice
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException sqle) {
+				System.err.println(sqle);
+			}
+		}
+		return category;
+	}
 }
