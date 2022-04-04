@@ -56,9 +56,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			return newFilm;
 
 		} catch (SQLException e) {
-//			if (e.toString().equalsIgnoreCase("illegal operation on empty set.")) {
-//				return null;
-//			}
 			System.err.println(e);
 		} finally {
 			try {
@@ -92,7 +89,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			rs = stmt.executeQuery();
 
 			rs.next();
-//			Actor(int id, String first_name, String last_name)
 			return rs.getString("name");
 
 		} catch (SQLException e) {
