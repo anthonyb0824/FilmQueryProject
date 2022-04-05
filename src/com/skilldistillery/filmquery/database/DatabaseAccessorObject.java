@@ -153,7 +153,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 //		Make sure your JDBC code uses PreparedStatement with bind variables instead of concatenating values into SQL strings.
 //		SELECT a.first_name, a.last_name, f.id FROM actor a JOIN film_actor ON a.id = fa.actor_id JOIN film f ON fa.film_id = f.id WHERE f.id = ? ORDER BY f.title;
 		try {
-			List<Actor> actorList = new ArrayList();
+			List<Actor> actorList = new ArrayList<Actor>();
 			String sqltext = "SELECT a.id,  a.first_name, a.last_name, f.id FROM actor a JOIN film_actor fa ON a.id = fa.actor_id JOIN film f ON fa.film_id = f.id WHERE f.id = ? ORDER BY f.title";
 			conn = DriverManager.getConnection(URL, user, pass);
 			stmt = conn.prepareStatement(sqltext);

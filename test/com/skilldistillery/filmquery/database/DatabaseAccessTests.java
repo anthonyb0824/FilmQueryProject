@@ -2,6 +2,8 @@ package com.skilldistillery.filmquery.database;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -61,9 +63,16 @@ class DatabaseAccessTests {
   }
   
   @Test
-  void test_findActorsByFilmId_with_invalid_id_returns_null() {
+  void test_findActorsByFilmId_with_invalid_id_returns_empty() {
 	  List<Actor> actors = db.findActorsByFilmId(-47);
-	  assertNull(actors);
+	  List<Actor> temp = new ArrayList<Actor>();
+	  assertEquals(actors,temp);
+  }
+  
+  @Test
+  void test_findActorsByFilmId_with_valid_id_returns_validArrayList() {
+	  List<Actor> actors = db.findActorsByFilmId(1);
+	  assertEquals(actors.get(0),new Actor(1, "Penelope", "Guiness") );
   }
 
 }
