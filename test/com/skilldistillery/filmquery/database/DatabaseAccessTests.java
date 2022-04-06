@@ -2,7 +2,6 @@ package com.skilldistillery.filmquery.database;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
